@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="pip_start",
-    version="v0.1.1",
+    version="v0.1.2",
     author="Veillax",
     author_email="contact@veillax.com",
     description="A Python Package allowing thr automatic checking and updating of a python package upon import",
