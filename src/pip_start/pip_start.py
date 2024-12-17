@@ -62,29 +62,6 @@ class PackageUpdater:
         Notes:
             Falls back to sys.executable if no exact version match is found.
         """
-        full_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
-        possible_execs = [
-            f"python{sys.version_info.major}.{sys.version_info.minor}",
-            f"py -{sys.version_info.major}.{sys.version_info.minor}",
-            f"python{full_version}",
-            f"py -{full_version}",
-            "python",
-            "py"
-        ]
-        for exec_name in possible_execs:
-            try:
-                result = subprocess.run(
-                    [exec_name, "--version"],
-                    capture_output=True,
-                    text=True,
-                    check=True
-                )
-                version_match = re.search(r'Python (\d+\.\d+\.\d+)', result.stdout)
-                if version_match and version_match.group(1) == full_version:
-                    return exec_name
-            except (subprocess.CalledProcessError, FileNotFoundError):
-                continue
-        logger.warning(f"Could not find exact version match. Falling back to {sys.executable}")
         return sys.executable
 
     def update_pkg(self, package_name=None):
